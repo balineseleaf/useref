@@ -1,9 +1,17 @@
+import { useEffect, useRef } from 'react';
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 
-const RichEditor = ({ fieldName, fieldValue, fieldChange }) => {
+
+const RichEditor = ({ fieldName, fieldValue, fieldChange, onFocusNext }) => {
+
+  const editorRef = useRef();
+
+  useEffect(() => {
+    editorRef.current.focus();
+  }, []);
 
   const handleChange = (value) => {
     fieldChange(fieldName, value);
@@ -13,7 +21,7 @@ const RichEditor = ({ fieldName, fieldValue, fieldChange }) => {
     <div style={{
       marginTop: "20px"
     }}>
-      <ReactQuill value={fieldValue} onChange={handleChange} />
+      <ReactQuill ref={editorRef} value={fieldValue} onChange={handleChange} />
     </div >);
 }
 
